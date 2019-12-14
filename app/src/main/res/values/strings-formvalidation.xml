@@ -1,0 +1,5 @@
+<resources>
+    <string name="form_error_blank">This can\'t be blank.</string>
+    <string name="form_error_int_mustbe_atleast">This must be at least %1$d.</string>
+    <string name="form_error_int_mustbe_nomorethan">This must be no more than %1$d.</string>
+</resources>

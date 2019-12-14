@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pregi.android.speedtester">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB1rzLS3c9web5sJzdn9NfU47CymQxm9I8"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Present activity manifest. Goes straight to ASTI speedtesting. -->
+        <!-- TODO: see if we can handle the orientation change ourselves.
+                   See doc for android:configChanges -->
+
+        <activity
+            android:name="net.pregi.android.speedtester.speedtest.SpeedtestGUIMainActivity"
+            android:label="@string/speedtestgui_activity_main_title"
+            android:parentActivityName="net.pregi.android.speedtester.MainActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:theme="@style/AppThemeDark">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER"/>
+
+            </intent-filter>
+            <intent-filter>
+                <!-- Probably not required; see GoogleAppIndexingWarning
+                     TODO: Setup might not be complete yet; see
+                        https://developer.android.com/training/app-indexing
+                        This is only step 1. Step 2 has yet to be carried out.
+                -->
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="sago-gulaman.xyz"
+                    android:pathPrefix="/web/speedtest" />
+            </intent-filter>
+        </activity>
+
+        <!-- Original activity manifest. Includes other activities. -->
+        <!--
+        <activity
+            android:name="net.pregi.android.speedtester.speedtest.SpeedtestGUIMainActivity"
+            android:label="@string/speedtestgui_activity_main_title"
+            android:parentActivityName="net.pregi.android.speedtester.MainActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:theme="@style/AppThemeDark">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.pregi.android.speedtester.MainActivity" />
+        </activity>
+        <activity
+            android:name="net.pregi.android.speedtester.speedtestweb.SpeedtestWebMainActivity"
+            android:label="@string/speedtestweb_activity_main_title"
+            android:parentActivityName="net.pregi.android.speedtester.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.pregi.android.speedtester.MainActivity" />
+        </activity>
+        <activity
+            android:name="net.pregi.android.speedtester.speedtestweb.SpeedtestWebOoklaMainActivity"
+            android:label="@string/speedtestwebookla_activity_main_title"
+            android:parentActivityName="net.pregi.android.speedtester.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.pregi.android.speedtester.MainActivity" />
+        </activity>
+        <activity android:name="net.pregi.android.speedtester.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+
+    </application>
+</manifest>

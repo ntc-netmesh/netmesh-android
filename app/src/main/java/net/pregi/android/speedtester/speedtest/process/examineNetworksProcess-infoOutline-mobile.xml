@@ -1,0 +1,72 @@
+<!-- This is an outline of what the ExamineNetworksProcess can display. It's not used by any code,
+but may come in handy in understanding the structure and interrelationship of the data.
+
+Different data is available for different API levels.
+
+This version outlines an output when a dual-sim phone is connected to mobile data for internet.
+
+Notice that I have no means of identifying which SIM card is being used for mobile data.
+I can't connect it to any of the CellInfo listed and the API does not make visible any
+    straightforward means.
+-->
+<networkAnalysis api="22">
+    <operator networkName="Globe Telecom" simName="GLOBE"/>
+    <connection connected="1" type="MOBILE" subtype="HSPA+" extraInfo="http.globe.com.ph"/>
+    <activeSims>
+        <sim slot="0" carrierName="" mcc="515" mnc="03"/>
+        <sim slot="1" carrierName="" mcc="515" mnc="03"/>
+        <!-- For exactly API 22, dual sims return the same info for both slots.
+            Apparent bug. Untested for higher API. -->
+        <!-- I don't know if carrierName is just blank in this phone. However, operator can be
+            deduced by its mcc-mnc. See https://www.mcc-mnc.com/ for a list.
+                515-03 is SMART.
+                515-02 is Globe Telecom. -->
+    </activeSims>
+    <cellInfo>
+        <!-- cellInfo entries come in different types. They all have only a few common fields;
+            each type has its own properties available exclusively to it.
+
+            Signal Strength is in dBm.
+            Signal Overall Quality is on a scale of 0 to 4.
+            Blank fields are unavailable.
+
+            For documentation on all available fields, see for reference:
+            https://developer.android.com/reference/android/telephony/CellInfo
+            Be sure to check all "known direct subclasses" and the API level they are supported.
+            -->
+        <gsm isRegistered="1" cellConnectionStatus="" cellId="30495" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-103" signalOverallQuality="2"/>
+        <gsm isRegistered="0" cellConnectionStatus="" cellId="60495" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-95" signalOverallQuality="3"/>
+        <gsm isRegistered="0" cellConnectionStatus="" cellId="40495" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-101" signalOverallQuality="2"/>
+        <gsm isRegistered="0" cellConnectionStatus="" cellId="25903" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-101" signalOverallQuality="2"/>
+        <gsm isRegistered="0" cellConnectionStatus="" cellId="50442" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-99" signalOverallQuality="2"/>
+        <gsm isRegistered="0" cellConnectionStatus="" cellId="10445" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-101" signalOverallQuality="2"/>
+        <gsm isRegistered="0" cellConnectionStatus="" cellId="20442" locationAreaCode="11109"
+            operatorName="" mcc="515" mnc="03" signalStrength="-103" signalOverallQuality="2"/>
+        <wcdma isRegistered="1" cellConnectionStatus="" cellId="210572657" locationAreaCode="30212"
+            operatorName="" mcc="515" mnc="02" signalStrength="-79" signalOverallQuality="4"/>
+        <wcdma isRegistered="0" cellConnectionStatus="" cellId="" locationAreaCode=""
+            operatorName="" mcc="" mnc="" signalStrength="-89" signalOverallQuality="4"/>
+        <wcdma isRegistered="0" cellConnectionStatus="" cellId="" locationAreaCode=""
+            operatorName="" mcc="" mnc="" signalStrength="-89" signalOverallQuality="4"/>
+        <!-- The following weren't part of the real output, but this would be their fields if they
+            happen to be listed.
+
+            -1 fields are integer fields that have a special value for "Unavailable",
+                i.e. they are nullable int fields.
+            -12.3 fields are float fields that have a special value for "Unavailable"
+                i.e. they are nullable float fields.
+            -->
+        <cdma isRegistered="0" baseStationId="-1" latitude="-12.3" longitude="-12.3"
+            networkId="-1" systemId="-1" operatorName="" signalStrength="123"
+            signalToNoise="8" signalOverallQuality="4"/>
+        <lte isRegistered="0" cellId="-1" trackingAreaCode="-1" timingAdvance="-1"
+            networkId="-1" systemId="-1" operatorName="" mcc="-1" mnc="-1" bandwidth="-1"
+            signalStrength="123" signalOverallQuality="4"/>
+    </cellInfo>
+</networkAnalysis>

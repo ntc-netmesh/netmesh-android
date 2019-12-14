@@ -1,0 +1,5 @@
+<resources>
+    <integer name="permissionrequest_location">1</integer>
+    <integer name="permissionrequest_examinenetworksprocess">2</integer>
+    <integer name="permissionrequest_checkpermissionprocess">3</integer>
+</resources>

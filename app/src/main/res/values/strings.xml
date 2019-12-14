@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Android Speedtester</string>
+
+    <string name="label_log">Log</string>
+    <string name="label_options">Options</string>
+    <string name="label_save">Save</string>
+    <string name="label_cancel">Cancel</string>
+
+    <string name="butt_start">Start</string>
+    <string name="butt_wait">Wait</string>
+    <string name="butt_cancel">Cancel</string>
+    <string name="butt_cancelling">Cancelling&#8230;</string>
+
+    <string name="value_yes">yes</string>
+    <string name="value_no">no</string>
+
+    <string name="message_minApi_22">Requires API 22+ (Android 5.1)</string>
+    <string name="message_minApi_28">Requires API 28+ (Android 9)</string>
+    <string name="message_permissiondenied">Permission denied.</string>
+    <string name="message_unavailable">Unavailable.</string>
+    <string name="message_unknown">Unknown.</string>
+
+    <string name="message_pinging">Pinging&#8230;</string>
+    <string name="message_pinging_done">Ping done.</string>
+    <string name="message_downloading">Downloading&#8230;</string>
+    <string name="message_downloading_done">Download done.</string>
+    <string name="message_uploading">Uploading&#8230;</string>
+    <string name="message_uploading_done">Upload done.</string>
+
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_show_log">Show Log</string>
+
+    <string name="dialog_title_settings">Settings</string>
+    <string name="dialog_title_log">Log</string>
+
+    <string name="notif_speedtest_done">Speedtest done.</string>
+    <string name="notif_speedtest_interrupted">Speedtest interrupted.</string>
+    <string name="notif_cantstart_stillbusy">Can\'t start; still busy.</string>
+
+    <string name="mainmenu_butt_speedtest">Speedtest (Native)</string>
+    <string name="speedtest_activity_main_title">Speedtest</string>
+    <string name="speedtest_options_tabtitle">Options</string>
+    <string name="speedtest_output_tabtitle">Output</string>
+    <string name="speedtest_map_tabtitle">Map</string>
+    <string name="speedtest_text_serverlist_label">Servers list.</string>
+    <string name="speedtest_text_serverlist_get">Get servers.</string>
+    <string name="speedtest_text_serverlist_downloading">Downloading...</string>
+    <string name="speedtest_text_options_usehttps">Use HTTPS</string>
+    <string name="speedtest_text_options_usehttps_note_ping">May cause ping readings to increase. However, this setting does not apply if a server cannot use HTTPS, or requires it.</string>
+    <string name="speedtest_text_options_pingcount">Ping count</string>
+    <string name="speedtest_text_options_downloadcount">Download count</string>
+    <string name="speedtest_text_options_downloadsize">Download size</string>
+    <string name="speedtest_text_options_downloadsizeandcount">Download size &#215; count</string>
+    <string name="speedtest_text_options_uploadcount">Upload count</string>
+    <string name="speedtest_text_options_uploadsize">Upload size</string>
+    <string name="speedtest_text_options_uploadsizeandcount">Upload size &#215; count</string>
+
+    <string name="mainmenu_butt_speedtestgui">Speedtest (GUI)</string>
+    <string name="mainmenu_butt_speedtestgui_asti">Speedtest (ASTI)</string>
+    <string name="mainmenu_butt_speedtestgui_ookla">Speedtest (Ookla)</string>
+    <string name="speedtestgui_activity_main_title">Speedtest (GUI)</string>
+    <string name="speedtestgui_activity_main_title_asti">Speedtest (ASTI)</string>
+    <string name="speedtestgui_activity_main_title_ookla">Speedtest (Ookla)</string>
+
+    <string name="mainmenu_butt_speedtestweb">Speedtest (Web)</string>
+    <string name="speedtestweb_activity_main_title">Speedtest (Web)</string>
+
+    <string name="mainmenu_butt_speedtestwebookla">Speedtest (Ookla Web)</string>
+    <string name="speedtestwebookla_activity_main_title">Speedtest (Ookla Web)</string>
+
+    <string-array name="bytesize_scale_label">
+        <item>B</item>
+        <item>KB</item>
+        <item>MB</item>
+    </string-array>
+</resources>

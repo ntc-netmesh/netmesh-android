@@ -1,0 +1,21 @@
+<resources>
+    <string name="speedtest_butt_checkpermissions_start">Check Permissions</string>
+    <string name="speedtest_html_checkpermissions_loading"><b>=== Check permissions. ===</b>\n\nLoading...</string>
+    <string name="speedtest_html_checkpermissions_main"><b>=== Check permissions. ===</b>
+\n
+\n
+\n<i><small>Some functionalities cannot be used unless the user explicitly gives consent to allow use
+of certain necessary phone features.</small></i>
+\n
+    </string>
+
+    <string name="checkpermissions_granted">Granted</string>
+    <string name="checkpermissions_denied">Denied</string>
+    <string name="checkpermissions_grant">Grant access</string>
+
+    <string name="checkpermissions_title_read_phone_state">Read Phone State</string>
+    <string name="checkpermissions_desc_read_phone_state">Needed to gain read access to availabe SIM cards.</string>
+
+    <string name="checkpermissions_title_access_fine_location">Access Fine Location</string>
+    <string name="checkpermissions_desc_access_fine_location">Needed to get GPS, and to read cell signal infos.</string>
+</resources>

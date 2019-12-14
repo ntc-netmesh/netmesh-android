@@ -1,0 +1,24 @@
+<!-- This is an outline of what the ExamineNetworksProcess can display. It's not used by any code,
+but may come in handy in understanding the structure and interrelationship of the data.
+
+Different data is available for different API levels.
+
+This version outlines an output when a SIM-less phone is connected to wifi for internet.
+See the *-mobile.xml version for comments on other possible data.
+-->
+<networkAnalysis api="28">
+    <operator networkName="" simName=""/>
+    <connection connected="1" type="WIFI" subtype="" extraInfo=""/>
+    <activeSims permissionGranted="0">
+    </activeSims>
+    <cellInfo>
+        <!-- cellInfo is still detected even though there are no SIM cards in place.
+            -->
+        <wcdma isRegistered="1" cellConnectionStatus="none" cellId="35903" locationAreaCode="15013"
+            operatorName="" mcc="515" mnc="03" signalStrength="-103" signalOverallQuality="2"/>
+        <wcdma isRegistered="0" cellConnectionStatus="none" cellId="" locationAreaCode=""
+            operatorName="" mcc="" mnc="" signalStrength="-103" signalOverallQuality="2"/>
+        <wcdma isRegistered="0" cellConnectionStatus="none" cellId="" locationAreaCode=""
+            operatorName="" mcc="" mnc="" signalStrength="-107" signalOverallQuality="1"/>
+    </cellInfo>
+</networkAnalysis>

@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/settings"
+        android:title="@string/action_refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_settings_white_18dp"
+        />
+    <item
+        android:id="@+id/show_log"
+        android:title="@string/action_show_log"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/examine_networks"
+        android:title="@string/speedtest_butt_examinenetworks_start"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/check_permissions"
+        android:title="@string/speedtest_butt_checkpermissions_start"
+        app:showAsAction="never"
+        />
+</menu>

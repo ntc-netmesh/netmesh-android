@@ -1,0 +1,115 @@
+<resources>
+    <string name="speedtest_butt_examinenetworks_start">Examine Networks</string>
+    <string name="speedtest_html_examinenetworks_loading"><b>=== Examine Networks. ===</b>\n\nLoading...</string>
+
+    <string name="speedtest_html_examinenetworks_main"><b>=== Examine Networks. ===</b>
+\n
+\n<i><small>Some information is available to the app only if your device\'s Android app version\'s API level is high enough.
+    Additional information is available for <annotation minApi="18">API 18+</annotation>, <annotation minApi="22">API 22+</annotation> and <annotation minApi="28">API 28+</annotation>.</small></i>
+\n
+\n<b>Your API Level:</b> <annotation value="myApiLevel"> </annotation>
+\n
+\n<b>Network Operator Name:</b> <annotation value="networkOperatorName"> </annotation>
+\n<b>SIM Operator Name:</b> <annotation value="simOperatorName"> </annotation>
+\n<b>Network Type:</b> <annotation value="networkType"> </annotation>
+\n<i><small>This value does not take into account the presence of multiple SIMs,
+    regardless of whether one of them is being used as your data connection.
+    To get the name of the desired SIM, disable the other SIM(s).</small></i>
+\n
+\n<b>--- Current Active Connection ---</b>
+\n<b>Is connected:</b> <annotation value="isConnected"> </annotation>
+\n<b>Type:</b> <annotation value="networkTypeName"> </annotation>
+\n<b>Subtype:</b> <annotation value="networkSubtypeName"> </annotation>
+\n<b>Reason:</b> <annotation value="failureReason"> </annotation>
+\n<b>Extra Info:</b> <annotation value="extraInfo"> </annotation>
+\n
+\n</string>
+
+    <string name="speedtest_html_examinenetworks_subscriptioninfo_unavailable_minApi">
+        <annotation minApi="22">Subscription Info unavailable. Requires API 22+.</annotation>
+        \n
+        \n</string>
+
+    <string name="speedtest_html_examinenetworks_subscriptioninfo_unavailable_permission">
+<annotation minApi="22">Subscription Info unavailable. Permission denied.</annotation>
+\n
+\n</string>
+
+    <string name="speedtest_html_examinenetworks_subscriptioninfo"><annotation minApi="22"><b>--- Subscription Info ---</b>
+\n
+\n<b>Active SIMs:</b> <annotation value="activeSubscriptionInfoCount"> </annotation>
+</annotation>\n\n</string>
+
+    <string name="speedtest_html_examinenetworks_subscriptioninfo_item"
+        ><annotation minApi="22"><annotation image="icon"> </annotation> <annotation value="displayName"> </annotation>: <annotation value="carrierName"> </annotation>
+\n<annotation tag="b">Slot <annotation value="slotIndex"> </annotation></annotation>
+\n<annotation tag="b">MCC-MNC</annotation>: <annotation value="mccMnc"> </annotation>
+</annotation>\n\n</string>
+
+    <string name="speedtest_html_examinenetworks_subscriptioninfo_warning_multisim"
+        ><small><i><b>WARNING:</b> For exactly Android API 22 (5.1 Lollipop) where this API was introduced,
+    there seems to be a bug for multi-SIM phones where the retrieved MCC and MNC
+    will be the same regardless of what subscription is being read, and their values
+    will correspond to whichever SIM was last enabled.
+    (Disabling SIMs until there is one left will not change this.)
+</i></small>\n\n</string>
+
+    <string name="speedtest_html_examinenetworks_cellinfo_main"><b>--- Cell Info ---</b>
+        \n
+        \n<b>Detected:</b> <annotation value="cellInfoCount"> </annotation>
+        \n
+        \n</string>
+
+    <string name="speedtest_html_examinenetworks_cellinfo_item_main"><annotation tag="b">Cell type:</annotation> <annotation value="cellType"> </annotation>
+        \n<annotation tag="b">Is registered:</annotation> <annotation value="isRegistered"> </annotation>
+        \n<annotation tag="b">Cell connection status:</annotation> <annotation minApi="28"><annotation value="cellConnectionStatus"> </annotation></annotation>
+        \n</string>
+
+    <string name="speedtest_html_examinenetworks_cellinfo_item_cdma"><annotation tag="b">Base Station Id:</annotation> <annotation value="baseStationId"> </annotation>
+        \n<annotation tag="b">Network Id:</annotation> <annotation value="networkId"> </annotation>
+        \n<annotation tag="b">System Id:</annotation> <annotation value="systemId"> </annotation>
+        \n<annotation tag="b">Operator Name:</annotation> <annotation minApi="28"><annotation value="operatorName"> </annotation></annotation>
+        \n<annotation tag="b">Geolocation:</annotation> <annotation value="geolocation"> </annotation>
+        \n<annotation tag="b">Signal to noise ratio (0-8):</annotation> <annotation value="signalToNoise"> </annotation>
+        \n<annotation tag="b">Signal Strength (dBm):</annotation> <annotation value="signalStrength"> </annotation>
+        \n<annotation tag="b">Overall signal quality (0-4):</annotation> <annotation value="signalQuality"> </annotation>
+        \n</string>
+    <string name="speedtest_html_examinenetworks_cellinfo_item_gsm"><annotation tag="b">Cell Id:</annotation> <annotation value="cellId"> </annotation>
+        \n<annotation tag="b">Location Area Code:</annotation> <annotation value="locationAreaCode"> </annotation>
+        \n<annotation tag="b">Operator Name:</annotation> <annotation minApi="28"><annotation value="operatorName"> </annotation></annotation>
+        \n<annotation tag="b">MCC-MNC</annotation>: <annotation value="mccMnc"> </annotation>
+        \n<annotation tag="b">Signal Strength (dBm):</annotation> <annotation value="signalStrength"> </annotation>
+        \n<annotation tag="b">Overall signal quality (0-4):</annotation> <annotation value="signalQuality"> </annotation>
+        \n</string>
+    <string name="speedtest_html_examinenetworks_cellinfo_item_lte"><annotation tag="b">Cell Id:</annotation> <annotation value="cellId"> </annotation>
+        \n<annotation tag="b">Bandwidth (kHz)</annotation> <annotation minApi="28"><annotation value="bandwidth"> </annotation></annotation>
+        \n<annotation tag="b">Operator Name:</annotation> <annotation minApi="28"><annotation value="operatorName"> </annotation></annotation>
+        \n<annotation tag="b">MCC-MNC:</annotation> <annotation value="mccMnc"> </annotation>
+        \n<annotation tag="b">Tracking Area Code:</annotation> <annotation value="trackingAreaCode"> </annotation>
+        \n<annotation tag="b">Timing Advance:</annotation> <annotation value="timingAdvance"> </annotation>
+        \n<annotation tag="b">Signal Strength (dBm):</annotation> <annotation value="signalStrength"> </annotation>
+        \n<annotation tag="b">Overall signal quality (0-4):</annotation> <annotation value="signalQuality"> </annotation>
+        \n</string>
+    <string name="speedtest_html_examinenetworks_cellinfo_item_wcdma"><annotation minApi="18"><annotation tag="b">Cell Id:</annotation> <annotation value="cellId"> </annotation>
+        \n<annotation tag="b">Location Area Code:</annotation> <annotation value="locationAreaCode"> </annotation>
+        \n<annotation tag="b">Operator Name:</annotation> <annotation minApi="28"><annotation value="operatorName"> </annotation></annotation>
+        \n<annotation tag="b">MCC-MNC:</annotation> <annotation value="mccMnc"> </annotation>
+        \n<annotation tag="b">Signal Strength (dBm):</annotation> <annotation value="signalStrength"> </annotation>
+        \n<annotation tag="b">Overall signal quality (0-4):</annotation> <annotation value="signalQuality"> </annotation>
+        </annotation>\n</string>
+
+
+    <string name="speedtest_html_examinenetworks_ncellinfo_main"><b>--- Neighboring Cell Info ---</b>
+        \n
+        \n<b>Detected:</b> <annotation value="cellInfoCount"> </annotation>
+        \n
+        \n</string>
+
+    <string name="speedtest_html_examinenetworks_ncellinfo_item_main"><annotation tag="b">Carrier Name:</annotation> <annotation value="carrierName"> </annotation>
+        \n<annotation tag="b">Cell type:</annotation> <annotation value="cellType"> </annotation>
+        \n<annotation tag="b">Cell Id:</annotation> <annotation value="cellId"> </annotation>
+        \n<annotation tag="b">Location Area Code:</annotation> <annotation value="locationAreaCode"> </annotation>
+        \n<annotation tag="b">Network Type:</annotation> <annotation value="networkType"> </annotation>
+        \n<annotation tag="b">Received Signal Strength (dBm):</annotation> <annotation value="signalStrength"> </annotation>
+        \n</string>
+</resources>
