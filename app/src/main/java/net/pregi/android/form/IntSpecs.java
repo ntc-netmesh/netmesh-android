@@ -46,6 +46,18 @@ public class IntSpecs extends Specs {
         lowerBounded = true;
         return this;
     }
+    public IntSpecs maximum(long value) {
+        upperBound = value;
+        upperBounded = true;
+        return this;
+    }
+    public IntSpecs between(long lower, long upper) {
+        lowerBound = lower;
+        lowerBounded = true;
+        upperBound = upper;
+        upperBounded = true;
+        return this;
+    }
 
     @Override
     public boolean validate(boolean autocorrect) {
@@ -54,7 +66,16 @@ public class IntSpecs extends Specs {
 
         if (input != null && input.length()>0) {
             long value = Long.parseLong(input.toString());
-            if (lowerBounded) {
+            if (upperBounded && lowerBounded) {
+                if (value<lowerBound || value>upperBound) {
+                    if (autocorrect) {
+                        v.setText(Long.toString(value<lowerBound ? lowerBound : upperBound));
+                    } else {
+                        v.setError(v.getResources().getString(R.string.form_error_int_mustbe_between, lowerBound, upperBound));
+                        return false;
+                    }
+                }
+            } else if (lowerBounded) {
                 if (value<lowerBound) {
                     if (autocorrect) {
                         v.setText(Long.toString(lowerBound));
@@ -63,8 +84,7 @@ public class IntSpecs extends Specs {
                         return false;
                     }
                 }
-            }
-            if (upperBounded) {
+            } else if (upperBounded) {
                 if (value>upperBound) {
                     if (autocorrect) {
                         v.setText(Long.toString(upperBound));

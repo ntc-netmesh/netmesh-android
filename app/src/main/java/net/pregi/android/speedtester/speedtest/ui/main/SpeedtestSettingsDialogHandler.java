@@ -137,17 +137,17 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
         // Form validation.
         formValidation = new FormValidation();
         formValidation.addInt(pingCount, true, null)
-                .minimum(getConstraintInt(Constraint.PING_COUNT_MIN, 0));
+                .between(getConstraintInt(Constraint.PING_COUNT_MIN, 0), 10);
         formValidation.addInt(downloadCount, true, null)
-                .minimum(getConstraintInt(Constraint.DOWNLOAD_COUNT_MIN, 0));
+                .between(getConstraintInt(Constraint.DOWNLOAD_COUNT_MIN, 0), 10);
         formValidation.addInt(uploadCount, true, null)
-                .minimum(getConstraintInt(Constraint.UPLOAD_COUNT_MIN, 0));
+                .between(getConstraintInt(Constraint.UPLOAD_COUNT_MIN, 0), 10);
         // TODO: write a custom Specs that takes into account down/uploadSizeScale
         //       so we can properly check against Constraint.DOWN/UPLOAD_SIZE_MIN;
         formValidation.addLong(downloadSizeAmount, true, null)
-                .minimum(1);
+                .between(1, 100);
         formValidation.addLong(uploadSizeAmount, true, null)
-                .minimum(1);
+                .between(1, 100);
         formValidation.validate(true);
     }
 
