@@ -9,9 +9,6 @@ class StepwiseGauge extends Gauge {
      */
     private double[] markValues;
 
-    private DecimalFormat df10 = new DecimalFormat("#.#", new DecimalFormatSymbols(Locale.getDefault()));
-    private DecimalFormat df1000 = new DecimalFormat("#", new DecimalFormatSymbols(Locale.getDefault()));
-
     private double value = 0;
     public void setValue(double value) {
         this.value = value;
@@ -34,24 +31,9 @@ class StepwiseGauge extends Gauge {
         }
     }
 
-    private static final String[] SUFFIX_INDEX = new String[] {"", "K", "M", "G", "T", "P"};
-    private String formatValue(double value, int suffixIndex) {
-        if (value<10) {
-            return df10.format(value)+SUFFIX_INDEX[suffixIndex];
-        } else if (value<1000 || suffixIndex>=SUFFIX_INDEX.length) {
-            return df1000.format(value)+SUFFIX_INDEX[suffixIndex];
-        } else {
-            return formatValue(value/1000, suffixIndex+1);
-        }
-    }
-
-    private String formatValue(double value) {
-        return formatValue(value, 0);
-    }
-
     @Override
-    protected String getTextAtMark(int i) {
-        return formatValue(markValues[i]);
+    protected double getValueAtMark(int i) {
+        return markValues[i];
     }
 
     public StepwiseGauge(int color, double startAngle, double endAngle, double[] markValues) {

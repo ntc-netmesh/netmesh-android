@@ -299,4 +299,8 @@ public class SpeedtestASTISagoGulamanProvider extends SpeedtestProvider {
             throw new RuntimeException(e);
         }
     }
+
+    public SpeedtestASTISagoGulamanProvider() {
+        setConstraint(Constraint.HTTPS_TOGGLEABLE, false);
+    }
 }

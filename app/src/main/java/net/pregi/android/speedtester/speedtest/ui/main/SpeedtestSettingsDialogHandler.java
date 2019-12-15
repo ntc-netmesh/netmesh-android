@@ -10,7 +10,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pregi.android.speedtester.R;
+
+import net.pregi.android.speedtester.speedtest.process.SpeedtestTools;
 import net.pregi.networking.speedtest.NetworkTestingOptions;
+import net.pregi.networking.speedtest.provider.SpeedtestProvider;
 
 import java.util.regex.Pattern;
 
@@ -22,8 +25,19 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
 
     private static final Pattern NONNEGATIVE_INTEGER_PARSABLE_PATTERN = Pattern.compile("^\\d+$");
 
+    private SpeedtestTools speedtestTools;
+    /** <p>Set the SpeedtestTools object; the settings form will query the tools object to determine
+     * the limits of its inputs.</p>
+     */
+    public SpeedtestSettingsDialogHandler setSpeedtestTools(SpeedtestTools value) {
+        speedtestTools = value;
+        return this;
+    }
+
     // settings fields
+    private View useHttpsLabel, useHttpsNote;
     private CheckBox useHttpsCheckbox;
+
     private EditText pingCount;
     private EditText downloadSizeAmount;
     private Spinner downloadSizeScale;
@@ -33,6 +47,19 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
     private EditText uploadCount;
 
     public void onBeforeShow() {
+        // Check if the form needs some constraint checking or updating.
+        if (speedtestTools != null) {
+            if (Boolean.FALSE.equals(speedtestTools.getConstraint(SpeedtestProvider.Constraint.HTTPS_TOGGLEABLE))) {
+                useHttpsLabel.setVisibility(View.GONE);
+                useHttpsCheckbox.setVisibility(View.GONE);
+                useHttpsNote.setVisibility(View.GONE);
+            } else {
+                useHttpsLabel.setVisibility(View.VISIBLE);
+                useHttpsCheckbox.setVisibility(View.VISIBLE);
+                useHttpsNote.setVisibility(View.VISIBLE);
+            }
+        }
+
         NetworkTestingOptions options = ((Listener)activity).getSpeedtestSettings();
         if (options == null) {
             options = new NetworkTestingOptions();
@@ -64,7 +91,10 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
 
     @Override
     protected void onSetView(View dialogView) {
+        useHttpsLabel = dialogView.findViewById(R.id.label_usehttps);
+        useHttpsNote = dialogView.findViewById(R.id.label_usehttps_note_ping);
         useHttpsCheckbox = dialogView.findViewById(R.id.checkbox_usehttps);
+
         pingCount = dialogView.findViewById(R.id.input_pingcount);
         downloadSizeAmount = dialogView.findViewById(R.id.input_downloadsize_amount);
         downloadSizeScale = dialogView.findViewById(R.id.input_downloadsize_scale);

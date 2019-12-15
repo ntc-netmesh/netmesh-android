@@ -91,7 +91,7 @@ public class SpeedtestTools {
                     Log.i("downloadServerList", "Downloaded server list " + receivedList.size() + " item(s) long.");
                     synchronized (listeners) {
                         serverList = receivedList;
-                        selectedServer = null;
+                        selectedServer = receivedList.size() >= 1 ? receivedList.get(0) : null;
 
                         for (SpeedtestToolsListener l : listeners) {
                             l.onDownloadServerList(receivedList, null);
@@ -532,6 +532,13 @@ public class SpeedtestTools {
     }
 
     private SpeedtestProvider speedtestProvider;
+    private Provider speedtestProviderEnum;
+    public Provider getProviderEnum() {
+        return speedtestProviderEnum;
+    }
+    public Object getConstraint(SpeedtestProvider.Constraint constraint) {
+        return speedtestProvider.getConstraint(constraint);
+    }
 
     /** <p>Start the speedtest using the currently set selected server and options.</p>
      * <p>This call has no effect if another process is already running.</p>
@@ -584,13 +591,15 @@ public class SpeedtestTools {
 
     private static EnumMap<Provider, SpeedtestTools>  _instances = new EnumMap<Provider, SpeedtestTools>(Provider.class);
     private SpeedtestTools(Provider provider) {
+        speedtestProviderEnum = provider;
         switch (provider) {
-        case ASTI:
-            speedtestProvider = new SpeedtestASTISagoGulamanProvider();
-            break;
         case OOKLA:
-        default:
             speedtestProvider = new SpeedtestOoklaProvider();
+            break;
+        case ASTI:
+        default:
+            speedtestProvider = new SpeedtestASTISagoGulamanProvider();
+            speedtestProviderEnum = Provider.ASTI;
             break;
         }
     }
@@ -599,6 +608,8 @@ public class SpeedtestTools {
 
         if (out == null) {
             out = new SpeedtestTools(provider);
+            out.downloadServerList();
+
             _instances.put(provider, out);
         }
         return out;

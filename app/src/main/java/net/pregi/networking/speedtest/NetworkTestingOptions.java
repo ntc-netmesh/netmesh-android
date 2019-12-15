@@ -22,7 +22,7 @@ public class NetworkTestingOptions {
         return pingCount;
     }
 
-    private long downloadSize = 25000000;
+    private long downloadSize = 5*1000*1000;
     public void setDownloadSize(long value) {
         downloadSize = value;
     }
@@ -45,7 +45,7 @@ public class NetworkTestingOptions {
         return downloadCount;
     }
 
-    private long uploadSize = 4000000;
+    private long uploadSize = 2*1000*1000;
     public void setUploadSize(long value) {
         uploadSize = value;
     }

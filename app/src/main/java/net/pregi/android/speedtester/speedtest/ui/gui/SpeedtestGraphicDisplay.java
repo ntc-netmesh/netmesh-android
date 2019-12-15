@@ -18,7 +18,7 @@ public class SpeedtestGraphicDisplay {
      *  the circle's diameter should span.
      */
 
-    //// Parameter variables
+    //// Constraint variables
 
     private int colorBackground = 0xFF000000;
     private int colorCircle = 0xFF888888;
@@ -55,7 +55,8 @@ public class SpeedtestGraphicDisplay {
     private RectF circleRect; // for drawing the outer circle bounded by this rect.
     private float displayDensity;
 
-    private Paint gaugeNumberPaint, textPaint;
+    private Paint gaugeNumberPaint, gaugeNumberUnitPaint, textPaint;
+    private Paint.FontMetrics gaugeNumberFM, gaugeNumberUnitFM;
     private Paint paintCircleOuter, paintCircleInner, paintCircleInnerFill;
     private Paint ioProgressPaint;
 
@@ -234,9 +235,9 @@ public class SpeedtestGraphicDisplay {
 
 
         // Draw the gauges
-        downloadGauge.draw(canvas, centerX, centerY, radius, gaugeNumberPaint);
-        uploadGauge.draw(canvas, centerX, centerY, radius, gaugeNumberPaint);
-        pingGauge.draw(canvas, centerX, centerY, radius, gaugeNumberPaint);
+        downloadGauge.draw(canvas, centerX, centerY, radius, gaugeNumberPaint, gaugeNumberFM, gaugeNumberUnitPaint, gaugeNumberUnitFM);
+        uploadGauge.draw(canvas, centerX, centerY, radius, gaugeNumberPaint, gaugeNumberFM, gaugeNumberUnitPaint, gaugeNumberUnitFM);
+        pingGauge.draw(canvas, centerX, centerY, radius, gaugeNumberPaint, gaugeNumberFM, gaugeNumberUnitPaint, gaugeNumberUnitFM);
 
         // Draw the center badge.
         {
@@ -299,6 +300,8 @@ public class SpeedtestGraphicDisplay {
         gaugeNumberPaint.setTextSize(14*displayDensity+0.5f);
         gaugeNumberPaint.setColor(0xFFFFFFFF);
 
+        gaugeNumberUnitPaint = new Paint(gaugeNumberPaint);
+
         textPaint = new Paint();
         textPaint.setTypeface(typeface);
         // other parameters to be set as they are needed, since they vary
@@ -328,6 +331,9 @@ public class SpeedtestGraphicDisplay {
 
                 // Change the gauge text size.
                 gaugeNumberPaint.setTextSize(16*displayDensity*radius/250+0.5f);
+                gaugeNumberFM = gaugeNumberPaint.getFontMetrics();
+                gaugeNumberUnitPaint.setTextSize(gaugeNumberPaint.getTextSize()*0.6f);
+                gaugeNumberUnitFM = gaugeNumberUnitPaint.getFontMetrics();
 
                 // (re)create the background drawable.
                 if (backgroundImage != null) {

@@ -5,9 +5,30 @@ import net.pregi.networking.speedtest.OnSpeedtestListener;
 import net.pregi.networking.speedtest.ServerEntry;
 
 import java.io.IOException;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class SpeedtestProvider {
+    public enum Constraint {
+        HTTPS_TOGGLEABLE;
+    }
+    private Map<Constraint, Object> parameter = new EnumMap<Constraint, Object>(Constraint.class);
+    public Object getConstraint(Constraint key) {
+        return parameter.get(key);
+    }
+
+    /** <p>Set a value to a parameter. Use this to define certain aspects of the provider
+     * that may be specific to it.</p>
+     *
+     * @param key
+     * @param value
+     */
+    protected void setConstraint(Constraint key, Object value) {
+        parameter.put(key, value);
+    }
+
+
     private String providerName;
     protected void setProviderName(String value) {
         providerName = value;

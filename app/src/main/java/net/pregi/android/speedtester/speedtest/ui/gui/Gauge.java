@@ -4,15 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 abstract class Gauge {
-    /** <p></p>This is the list of interval steps.
-     * As the displayed value grows larger, the interval steps should go larger as well.</p>
-     *
-     * <p>The last value in the list is used instead for multiplying intervalStepValueTimes
-     * before resetting the index.</p>
-     */
-    private static final float[] INTERVAL_STEPS_LINEAR
-            = new float[] {1, 5, 10, 20, 100, 200, 1000};
+    private DecimalFormat df10 = new DecimalFormat("#.#", new DecimalFormatSymbols(Locale.getDefault()));
+    private DecimalFormat df1000 = new DecimalFormat("#", new DecimalFormatSymbols(Locale.getDefault()));
+    private static final String[] SUFFIX_INDEX = new String[] {"", "K", "M", "G", "T", "P"};
 
     // Parameters
     /** Gauge angles. These indicate where each gauge starts and ends.
@@ -65,11 +64,10 @@ abstract class Gauge {
         displayedValue = value;
     }
 
-    protected abstract String getTextAtMark(int i);
+    protected abstract double getValueAtMark(int i);
 
-    private void drawNumbers(Canvas canvas, int centerX, int centerY, float radius, Paint textPaint) {
-        Paint.FontMetrics fm = textPaint.getFontMetrics();
-        float textHeight = -fm.ascent;
+    private void drawNumbers(Canvas canvas, int centerX, int centerY, float radius, Paint textPaint, Paint.FontMetrics textFM, Paint unitPaint, Paint.FontMetrics unitFM) {
+        float textHeight = -textFM.ascent;
 
         double textRadius = radius-majorMarkLength-textHeight-4;
 
@@ -78,13 +76,31 @@ abstract class Gauge {
             double angleX = Math.cos(currentAngleR);
             double angleY = Math.sin(currentAngleR);
 
+            String valueText = "", unitText = "";
+            {
+                int suffixIndex = 0;
+                double value = getValueAtMark(i);
+                while (value >= 1000 && suffixIndex < SUFFIX_INDEX.length-1) {
+                    value /= 1000;
+                    suffixIndex++;
+                }
 
-            String text = getTextAtMark(i);
-            float textWidth = textPaint.measureText(text);
+                if (value<10) {
+                    valueText = df10.format(value);
+                } else {
+                    valueText = df1000.format(value);
+                }
+                unitText = SUFFIX_INDEX[suffixIndex];
+            }
+            float numberWidth = textPaint.measureText(valueText);
+            float unitWidth = unitPaint.measureText(unitText);
+
+            float textWidth = numberWidth+unitWidth;
 
             float x = (float) (centerX + textRadius * angleX - textWidth / 2);
             float y = (float) (centerY - textRadius * angleY + textHeight / 2);
-            canvas.drawText(text, x, y, textPaint);
+            canvas.drawText(valueText, x, y, textPaint);
+            canvas.drawText(unitText, x+numberWidth, y, unitPaint);
         }
     }
 
@@ -133,9 +149,9 @@ abstract class Gauge {
         canvas.drawArc(new RectF(centerX-arcRadius, centerY-arcRadius, centerX+arcRadius, centerY+arcRadius), (float)-startAngle, (float)-(handAngle-startAngle), false, markSweepPaint);
     }
 
-    public void draw(Canvas canvas, int centerX, int centerY, float radius, Paint textPaint) {
+    public void draw(Canvas canvas, int centerX, int centerY, float radius, Paint textPaint, Paint.FontMetrics textFM, Paint unitsPaint, Paint.FontMetrics unitsFM) {
         drawValue(canvas, centerX, centerY, radius);
-        drawNumbers(canvas, centerX, centerY, radius, textPaint);
+        drawNumbers(canvas, centerX, centerY, radius, textPaint, textFM, unitsPaint, unitsFM);
     }
 
     public Gauge(int color, double startAngle, double endAngle, int majorSegments) {

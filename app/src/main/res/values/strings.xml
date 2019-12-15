@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Android Speedtester</string>
+    <string name="app_name_dev">Android Speedtester</string>
+    <string name="app_name">NetMesh</string>
 
     <string name="label_log">Log</string>
     <string name="label_options">Options</string>

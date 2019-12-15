@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pregi.android.speedtester.R;
@@ -53,7 +54,7 @@ public class SpeedtestGUIMainActivity extends AppCompatActivity implements Speed
     private ServerListAdapter serverListAdapter;
 
     private Button startButton;
-    private TextView textView;
+    private TextView serverListLabelView;
     private Spinner serverListDropdown;
 
     private SpeedtestSettingsDialogHandler settingsDialog;
@@ -89,22 +90,29 @@ public class SpeedtestGUIMainActivity extends AppCompatActivity implements Speed
         Bundle b = getIntent().getExtras();
         if (b != null && b.getString("provider", "").equals("ookla")) {
             speedtestTools = SpeedtestTools.getInstance(SpeedtestTools.Provider.OOKLA);
-            activityTitle = r.getString(R.string.speedtestgui_activity_main_title_ookla);
+            activityTitle = r.getString(R.string.app_name)+" (Ookla)";
         } else {
             speedtestTools = SpeedtestTools.getInstance(SpeedtestTools.Provider.ASTI);
-            activityTitle = r.getString(R.string.speedtestgui_activity_main_title_asti);
+            activityTitle = r.getString(R.string.app_name);
         }
         setTitle(activityTitle);
 
-        settingsDialog = new SpeedtestSettingsDialogHandler(this);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(false);
+            ab.setHomeButtonEnabled(false);
+        }
+
+        settingsDialog = new SpeedtestSettingsDialogHandler(this)
+                .setSpeedtestTools(speedtestTools);
         logDialog = new LogDialogHandler(this);
 
         {
             // Prepare the server list label.
-            textView = findViewById(R.id.serverlist_label);
+            serverListLabelView = findViewById(R.id.serverlist_label);
 
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setHighlightColor(Color.TRANSPARENT);
+            serverListLabelView.setMovementMethod(LinkMovementMethod.getInstance());
+            serverListLabelView.setHighlightColor(Color.TRANSPARENT);
             setServersListLabelForState(false, null);
         }
         {
@@ -162,6 +170,13 @@ public class SpeedtestGUIMainActivity extends AppCompatActivity implements Speed
                 }
             }
         );
+
+        // 2019-12-15: because there is no plan of ever adding more than one server,
+        //  server selection is hidden until further notice.
+        if (speedtestTools.getProviderEnum() == SpeedtestTools.Provider.ASTI) {
+            serverListLabelView.setVisibility(View.GONE);
+            serverListDropdown.setVisibility(View.GONE);
+        }
     }
 
     private SpeedtestToolsListener speedtestToolsListener;
@@ -426,7 +441,7 @@ public class SpeedtestGUIMainActivity extends AppCompatActivity implements Speed
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                textView.setText(text);
+                serverListLabelView.setText(text);
             }
         });
         return text;
