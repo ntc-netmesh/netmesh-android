@@ -1,7 +1,11 @@
 package net.pregi.android.speedtester.speedtest.ui.main;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -11,9 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.pregi.android.speedtester.R;
 
+import net.pregi.android.form.FormValidation;
+import net.pregi.android.form.Specs;
 import net.pregi.android.speedtester.speedtest.process.SpeedtestTools;
 import net.pregi.networking.speedtest.NetworkTestingOptions;
 import net.pregi.networking.speedtest.provider.SpeedtestProvider;
+import net.pregi.networking.speedtest.provider.SpeedtestProvider.Constraint;
 
 import java.util.regex.Pattern;
 
@@ -33,11 +40,27 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
         speedtestTools = value;
         return this;
     }
+    private int getConstraintInt(Constraint prop, int defaultValue) {
+        Object out = speedtestTools.getConstraint(prop);
+        if (out instanceof Number) {
+            return ((Number) out).intValue();
+        }
+        return defaultValue;
+    }
+    private long getConstraintLong(Constraint prop, long defaultValue) {
+        Object out = speedtestTools.getConstraint(prop);
+        if (out instanceof Number) {
+            return ((Number) out).longValue();
+        }
+        return defaultValue;
+    }
 
     // settings fields
     private View useHttpsLabel, useHttpsNote;
     private CheckBox useHttpsCheckbox;
 
+
+    private FormValidation formValidation;
     private EditText pingCount;
     private EditText downloadSizeAmount;
     private Spinner downloadSizeScale;
@@ -46,10 +69,19 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
     private Spinner uploadSizeScale;
     private EditText uploadCount;
 
+    private long getSizeInput(EditText numberValue, Spinner scaleValue) {
+        long out = Long.parseLong(numberValue.getText().toString().trim());
+        for (int i=0, l=scaleValue.getSelectedItemPosition(); i<l ; i++) {
+            out *= 1000;
+        }
+        return out;
+    }
+
+
     public void onBeforeShow() {
         // Check if the form needs some constraint checking or updating.
         if (speedtestTools != null) {
-            if (Boolean.FALSE.equals(speedtestTools.getConstraint(SpeedtestProvider.Constraint.HTTPS_TOGGLEABLE))) {
+            if (Boolean.FALSE.equals(speedtestTools.getConstraint(Constraint.HTTPS_TOGGLEABLE))) {
                 useHttpsLabel.setVisibility(View.GONE);
                 useHttpsCheckbox.setVisibility(View.GONE);
                 useHttpsNote.setVisibility(View.GONE);
@@ -69,24 +101,54 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
         pingCount.setText(Integer.toString(options.getPingCount()));
 
         long downloadSize = options.getDownloadSize();
+        /*
         int downloadScaleIndex = 0, downloadScaleMaxIndex = downloadSizeScale.getAdapter().getCount()-1;
         while (downloadSize>=1000 && downloadSize%1000 == 0 && downloadScaleIndex<downloadScaleMaxIndex) {
             downloadSize /= 1000;
             downloadScaleIndex++;
+        }*/
+        // Fix scale to MB.
+        for (int i=0;i<2;i++) {
+            downloadSize /= 1000;
         }
-        downloadSizeAmount.setText(Long.toString(downloadSize));
-        downloadSizeScale.setSelection(downloadScaleIndex);
+        downloadSizeAmount.setText(Long.toString(Math.max(downloadSize, 1)));
+        downloadSizeScale.setSelection(2);
+        downloadSizeScale.setEnabled(false);
+
         downloadCount.setText(Integer.toString(options.getDownloadCount()));
 
         long uploadSize = options.getUploadSize();
+        /*
         int uploadScaleIndex = 0, uploadScaleMaxIndex = uploadSizeScale.getAdapter().getCount()-1;
         while (uploadSize>=1000 && uploadSize%1000 == 0 && uploadScaleIndex<downloadScaleMaxIndex) {
             uploadSize /= 1000;
             uploadScaleIndex++;
+        }*/
+        // Fix scale to MB.
+        for (int i=0;i<2;i++) {
+            uploadSize /= 1000;
         }
-        uploadSizeAmount.setText(Long.toString(uploadSize));
-        uploadSizeScale.setSelection(uploadScaleIndex);
+        uploadSizeAmount.setText(Long.toString(Math.max(uploadSize, 1)));
+        uploadSizeScale.setSelection(2);
+        uploadSizeScale.setEnabled(false);
         uploadCount.setText(Integer.toString(options.getUploadCount()));
+
+        ///////
+        // Form validation.
+        formValidation = new FormValidation();
+        formValidation.addInt(pingCount, true, null)
+                .minimum(getConstraintInt(Constraint.PING_COUNT_MIN, 0));
+        formValidation.addInt(downloadCount, true, null)
+                .minimum(getConstraintInt(Constraint.DOWNLOAD_COUNT_MIN, 0));
+        formValidation.addInt(uploadCount, true, null)
+                .minimum(getConstraintInt(Constraint.UPLOAD_COUNT_MIN, 0));
+        // TODO: write a custom Specs that takes into account down/uploadSizeScale
+        //       so we can properly check against Constraint.DOWN/UPLOAD_SIZE_MIN;
+        formValidation.addLong(downloadSizeAmount, true, null)
+                .minimum(1);
+        formValidation.addLong(uploadSizeAmount, true, null)
+                .minimum(1);
+        formValidation.validate(true);
     }
 
     @Override
@@ -106,57 +168,61 @@ public class SpeedtestSettingsDialogHandler extends AlertDialogHandler {
 
     @Override
     protected void onBuild(AlertDialog.Builder builder) {
-        builder.setPositiveButton(R.string.label_save, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // Save settings.
-                NetworkTestingOptions options = new NetworkTestingOptions(((Listener)SpeedtestSettingsDialogHandler.this.activity).getSpeedtestSettings());
+        builder.setPositiveButton(R.string.label_save, null)
+            .setNegativeButton(R.string.label_cancel, null);
+    }
 
-                options.setUseHttps(useHttpsCheckbox.isChecked());
-                {
-                    String input = pingCount.getText().toString().trim();
-                    if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
-                        options.setPingCount(Integer.parseInt(input));
-                    }
-                }
-                {
-                    String input = downloadSizeAmount.getText().toString().trim();
-                    if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
-                        long downloadSize = Long.parseLong(input);
-                        for (int i=0, l=downloadSizeScale.getSelectedItemPosition(); i<l ; i++) {
-                            downloadSize *= 1000;
-                        }
-                        options.setDownloadSize(downloadSize);
-                    }
-                }
-                {
-                    String input = downloadCount.getText().toString().trim();
-                    if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
-                        options.setDownloadCount(Integer.parseInt(input));
-                    }
-                }
-                {
-                    String input = uploadSizeAmount.getText().toString().trim();
-                    if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
-                        long uploadSize = Long.parseLong(input);
-                        for (int i=0, l=uploadSizeScale.getSelectedItemPosition(); i<l ; i++) {
-                            uploadSize *= 1000;
-                        }
-                        options.setUploadSize(uploadSize);
-                    }
-                }
-                {
-                    String input = uploadCount.getText().toString().trim();
-                    if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
-                        options.setUploadCount(Integer.parseInt(input));
-                    }
-                }
+    @Override
+    protected void onCreateDialog(final Dialog dialog) {
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                Button button = ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (formValidation.validate(false)) {
+                            // Save settings.
+                            NetworkTestingOptions options = new NetworkTestingOptions(((Listener) SpeedtestSettingsDialogHandler.this.activity).getSpeedtestSettings());
 
-                ((Listener)SpeedtestSettingsDialogHandler.this.activity).setSpeedtestSettings(options);
-            }
-        })
-        .setNegativeButton(R.string.label_cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // Do nothing.
+                            options.setUseHttps(useHttpsCheckbox.isChecked());
+                            {
+                                String input = pingCount.getText().toString().trim();
+                                if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
+                                    options.setPingCount(Integer.parseInt(input));
+                                }
+                            }
+                            {
+                                String input = downloadSizeAmount.getText().toString().trim();
+                                if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
+                                    options.setDownloadSize(getSizeInput(downloadSizeAmount, downloadSizeScale));
+                                }
+                            }
+                            {
+                                String input = downloadCount.getText().toString().trim();
+                                if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
+                                    options.setDownloadCount(Integer.parseInt(input));
+                                }
+                            }
+                            {
+                                String input = uploadSizeAmount.getText().toString().trim();
+                                if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
+                                    options.setUploadSize(getSizeInput(uploadSizeAmount, uploadSizeScale));
+                                }
+                            }
+                            {
+                                String input = uploadCount.getText().toString().trim();
+                                if (NONNEGATIVE_INTEGER_PARSABLE_PATTERN.matcher(input).matches()) {
+                                    options.setUploadCount(Integer.parseInt(input));
+                                }
+                            }
+
+                            ((Listener) SpeedtestSettingsDialogHandler.this.activity).setSpeedtestSettings(options);
+
+                            dialog.dismiss();
+                        }
+                    }
+                });
             }
         });
     }

@@ -21,9 +21,13 @@ public abstract class AlertDialogHandler {
     public void onBeforeShow() {
 
     }
+    public void onAfterShow(Dialog dialog) {
+
+    }
     public final void show() {
         onBeforeShow();
         dialog.show();
+        onAfterShow(dialog);
     }
 
     /** <p>Called on construction when the dialog view is set, whether by providing a view object
@@ -31,11 +35,21 @@ public abstract class AlertDialogHandler {
      */
     protected abstract void onSetView(View dialogView);
 
+
     /** <p>Called on construction when the dialog builder is being set. Common traits have
      * already been set by this point, but builder.create() has not been called yet.</p>
      */
     protected abstract void onBuild(AlertDialog.Builder builder);
 
+    /** <p>Called on construction when the dialog has been created, but not yet shown.</p>
+     *
+     * <p>Some of the dialog's listeners, such as setOnShowListener, can be set here.</p>
+     *
+     * @param dialog
+     */
+    protected void onCreateDialog(Dialog dialog) {
+
+    }
 
     private AlertDialogHandler(Activity activity) {
         this.activity = activity;
@@ -51,5 +65,6 @@ public abstract class AlertDialogHandler {
                 .setView(dialogView);
         onBuild(builder);
         dialog = builder.create();
+        onCreateDialog(dialog);
     }
 }

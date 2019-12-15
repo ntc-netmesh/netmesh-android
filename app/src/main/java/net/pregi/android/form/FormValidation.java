@@ -7,7 +7,8 @@ import java.util.List;
 
 public class FormValidation {
     private List<Specs> specsList = new ArrayList<Specs>();
-    private <T extends Specs> T addSpecs(T specs) {
+    public <T extends Specs> T add(T specs) {
+        specsList.add(specs);
         return specs;
     }
 
@@ -22,9 +23,9 @@ public class FormValidation {
     }
 
     public IntSpecs addInt(EditText v, boolean required, OnIntValue onValue) {
-        return addSpecs(new IntSpecs(this, v, required, onValue)).integer();
+        return add(new IntSpecs(this, v, required, onValue)).integer();
     }
     public IntSpecs addLong(EditText v, boolean required, OnIntValue onValue) {
-        return addSpecs(new IntSpecs(this, v, required, onValue));
+        return add(new IntSpecs(this, v, required, onValue));
     }
 }

@@ -11,7 +11,12 @@ import java.util.Map;
 
 public abstract class SpeedtestProvider {
     public enum Constraint {
-        HTTPS_TOGGLEABLE;
+        HTTPS_TOGGLEABLE,
+        PING_COUNT_MIN,
+        DOWNLOAD_COUNT_MIN,
+        DOWNLOAD_SIZE_MIN,
+        UPLOAD_COUNT_MIN,
+        UPLOAD_SIZE_MIN;
     }
     private Map<Constraint, Object> parameter = new EnumMap<Constraint, Object>(Constraint.class);
     public Object getConstraint(Constraint key) {

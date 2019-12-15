@@ -18,9 +18,7 @@ import java.util.regex.Pattern;
 public class IntSpecs extends Specs {
     private static final Pattern FORMAT_INTEGER = Pattern.compile("^-?\\d+$");
 
-    private EditText mView;
-    private boolean mRequired;
-    private OnIntValue mOnValue;
+    private OnIntValue onValueListener;
 
     private long lowerBound = Long.MIN_VALUE, upperBound = Long.MAX_VALUE;
     private boolean lowerBounded = false, upperBounded = false;
@@ -43,18 +41,25 @@ public class IntSpecs extends Specs {
         return this;
     }
 
+    public IntSpecs minimum(long value) {
+        lowerBound = value;
+        lowerBounded = true;
+        return this;
+    }
+
     @Override
     public boolean validate(boolean autocorrect) {
-        CharSequence input = mView.getText();
+        EditText v = getView();
+        CharSequence input = v.getText();
 
         if (input != null && input.length()>0) {
             long value = Long.parseLong(input.toString());
             if (lowerBounded) {
                 if (value<lowerBound) {
                     if (autocorrect) {
-                        mView.setText(Long.toString(lowerBound));
+                        v.setText(Long.toString(lowerBound));
                     } else {
-                        mView.setError(mView.getResources().getString(R.string.form_error_int_mustbe_atleast, lowerBound));
+                        v.setError(v.getResources().getString(R.string.form_error_int_mustbe_atleast, lowerBound));
                         return false;
                     }
                 }
@@ -62,15 +67,15 @@ public class IntSpecs extends Specs {
             if (upperBounded) {
                 if (value>upperBound) {
                     if (autocorrect) {
-                        mView.setText(Long.toString(upperBound));
+                        v.setText(Long.toString(upperBound));
                     } else {
-                        mView.setError(mView.getResources().getString(R.string.form_error_int_mustbe_nomorethan, lowerBound));
+                        v.setError(v.getResources().getString(R.string.form_error_int_mustbe_nomorethan, lowerBound));
                         return false;
                     }
                 }
             }
-        } else if (required) {
-            mView.setError(mView.getResources().getString(R.string.form_error_blank));
+        } else if (isRequired()) {
+            v.setError(v.getResources().getString(R.string.form_error_blank));
             return false;
         }
 
@@ -78,12 +83,10 @@ public class IntSpecs extends Specs {
     }
 
     IntSpecs(FormValidation validator, EditText view, boolean required, OnIntValue onValue) {
-        super(validator);
-        mView = view;
-        mRequired = required;
-        mOnValue = onValue;
+        super(validator, view, required);
+        onValueListener = onValue;
 
-        mView.addTextChangedListener(new TextWatcher() {
+        view.addTextChangedListener(new TextWatcher() {
             private CharSequence before;
             private CharSequence after;
             private int beforeDiffStart;
@@ -110,8 +113,10 @@ public class IntSpecs extends Specs {
                 if (s.length()>0) {
                     if (FORMAT_INTEGER.matcher(after).matches()) {
                         // It is an almost valid input, so apply it.
-                        if (validate(true)) {
-                            mOnValue.onValue(Long.parseLong(s.toString()));
+                        if (validate(false)) {
+                            if (onValueListener != null) {
+                                onValueListener.onValue(Long.parseLong(s.toString()));
+                            }
                         }
                     } else {
                         // only addition of invalid characters will cause the format check to fail
@@ -119,8 +124,8 @@ public class IntSpecs extends Specs {
                         // revert that change.
                         s.replace(afterDiffStart, afterDiffStart + afterDiffLength, before, beforeDiffStart, beforeDiffStart + beforeDiffLength);
                     }
-                } else if (IntSpecs.this.required) {
-                   validate(true);
+                } else if (isRequired()) {
+                   validate(false);
                 }
             }
         });

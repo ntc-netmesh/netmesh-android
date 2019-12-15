@@ -68,8 +68,8 @@ public class SpeedtestASTISagoGulamanProvider extends SpeedtestProvider {
             actualOptions.setPingCount(Math.max(options.getPingCount(), 2));
             actualOptions.setDownloadCount(Math.max(options.getDownloadCount(), 1));
             actualOptions.setUploadCount(Math.max(options.getUploadCount(), 1));
-            actualOptions.setDownloadSize(Math.max(options.getDownloadSize(), 1));
-            actualOptions.setUploadSize(Math.max(options.getUploadSize(), 1));
+            actualOptions.setDownloadSize(Math.max(options.getDownloadSize(), 32));
+            actualOptions.setUploadSize(Math.max(options.getUploadSize(), 32));
             vars.actualOptions = actualOptions;
 
             socket.on(Socket.EVENT_CONNECT, new Listener() {
@@ -206,7 +206,7 @@ public class SpeedtestASTISagoGulamanProvider extends SpeedtestProvider {
                         case STATE_DOWNLOAD:
                             byte[] dlBinBlob = (byte[]) msg.get("bin");
                             byte[] last32bytes = new byte[32];
-                            System.arraycopy(dlBinBlob, dlBinBlob.length - 32, last32bytes, 0, 32);
+                            System.arraycopy(dlBinBlob, Math.max(dlBinBlob.length - 32, 0), last32bytes, 0, Math.min(dlBinBlob.length, 32));
 
                             data.put("hash", last32bytes);
 
@@ -302,5 +302,10 @@ public class SpeedtestASTISagoGulamanProvider extends SpeedtestProvider {
 
     public SpeedtestASTISagoGulamanProvider() {
         setConstraint(Constraint.HTTPS_TOGGLEABLE, false);
+        setConstraint(Constraint.PING_COUNT_MIN, 2);
+        setConstraint(Constraint.DOWNLOAD_COUNT_MIN, 1);
+        setConstraint(Constraint.DOWNLOAD_SIZE_MIN, 32);
+        setConstraint(Constraint.UPLOAD_COUNT_MIN, 1);
+        setConstraint(Constraint.UPLOAD_SIZE_MIN, 32);
     }
 }

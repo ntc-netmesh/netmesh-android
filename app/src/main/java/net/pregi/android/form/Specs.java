@@ -2,8 +2,16 @@ package net.pregi.android.form;
 
 import android.widget.EditText;
 
-abstract class Specs {
-    protected boolean required;
+public abstract class Specs {
+    private boolean required;
+    public boolean isRequired() {
+        return required;
+    }
+
+    private EditText view;
+    public EditText getView() {
+        return view;
+    }
 
     private FormValidation validator;
 
@@ -22,7 +30,9 @@ abstract class Specs {
         return validator.addLong(v, required, onValue);
     }
 
-    Specs(FormValidation validator) {
+    public Specs(FormValidation validator, EditText view, boolean required) {
         this.validator = validator;
+        this.required = required;
+        this.view = view;
     }
 }
