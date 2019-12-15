@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.main;
+package net.pregi.android.netmesh.speedtest.ui.main;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 
 // I would have called this a DiaLogHandler for the pun, but it may confuse people.
 public class LogDialogHandler extends AlertDialogHandler {

@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.main;
+package net.pregi.android.netmesh.speedtest.ui.main;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 import net.pregi.android.text.SpanUtils;
 import net.pregi.networking.speedtest.ServerEntry;
 

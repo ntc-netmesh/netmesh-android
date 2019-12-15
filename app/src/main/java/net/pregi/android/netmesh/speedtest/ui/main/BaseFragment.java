@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.main;
+package net.pregi.android.netmesh.speedtest.ui.main;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

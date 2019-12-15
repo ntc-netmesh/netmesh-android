@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.process;
+package net.pregi.android.netmesh.speedtest.process;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 import net.pregi.android.text.SpanUtils;
 
 public class CheckPermissionsProcessB {
@@ -63,15 +63,15 @@ public class CheckPermissionsProcessB {
     private static final int COLOR_GOOD = 0xFF006600;
 
     private static final String[] PERMISSION_NAMES = new String[] {
-            Manifest.permission.READ_PHONE_STATE,
+            // Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.ACCESS_FINE_LOCATION
     };
     private static final int[] PERMISSION_TITLES_R = new int[] {
-            R.string.checkpermissions_title_read_phone_state,
+            // R.string.checkpermissions_title_read_phone_state,
             R.string.checkpermissions_title_access_fine_location
     };
     private static final int[] PERMISSION_DESCS_R = new int[] {
-            R.string.checkpermissions_desc_read_phone_state,
+            // R.string.checkpermissions_desc_read_phone_state,
             R.string.checkpermissions_desc_access_fine_location
     };
 

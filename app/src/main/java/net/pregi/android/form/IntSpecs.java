@@ -4,7 +4,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 
 import java.util.regex.Pattern;
 

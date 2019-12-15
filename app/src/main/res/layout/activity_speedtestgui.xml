@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.pregi.android.speedtester.speedtest.SpeedtestGUIMainActivity">
+    tools:context="net.pregi.android.netmesh.speedtest.SpeedtestGUIMainActivity">
 
     <TextView
         android:id="@+id/serverlist_label"

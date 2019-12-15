@@ -1,8 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.gui;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+package net.pregi.android.netmesh.speedtest.ui.gui;
 
 class StepwiseGauge extends Gauge {
     /** <p></p>This is the list of interval steps.</p>

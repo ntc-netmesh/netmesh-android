@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtestweb;
+package net.pregi.android.netmesh.speedtestweb;
 
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 
-public class SpeedtestWebOoklaMainActivity extends AppCompatActivity {
+public class SpeedtestWebMainActivity extends AppCompatActivity {
     private WebView webView;
 
     @Override
@@ -27,8 +27,7 @@ public class SpeedtestWebOoklaMainActivity extends AppCompatActivity {
         //  Requires a bit of researching.
         webView = findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.speedtest.net/");
-        webView.getSettings().setUserAgentString("Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0");
+        webView.loadUrl("https://sago-gulaman.xyz/web/speedtest/");
         webView.setWebViewClient(new WebViewClient() {
             private void setActivityTitle(String value, String subvalue) {
                 ActionBar ab = getSupportActionBar();

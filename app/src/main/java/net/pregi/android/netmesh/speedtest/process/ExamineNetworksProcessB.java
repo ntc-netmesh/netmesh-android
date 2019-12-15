@@ -1,11 +1,9 @@
-package net.pregi.android.speedtester.speedtest.process;
+package net.pregi.android.netmesh.speedtest.process;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.telephony.CellIdentityCdma;
@@ -22,18 +20,15 @@ import android.telephony.CellSignalStrengthGsm;
 import android.telephony.CellSignalStrengthLte;
 import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.NeighboringCellInfo;
-import android.telephony.SubscriptionInfo;
-import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.Annotation;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.StyleSpan;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 import net.pregi.android.telephony.CellInfoUtils;
 import net.pregi.android.text.SpanUtils;
 
@@ -45,13 +40,6 @@ public class ExamineNetworksProcessB {
     public interface OnLogListener {
         public void onLog(CharSequence log);
     }
-
-    public static final String[] REQUIRED_PERMISSIONS = new String[] {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.READ_PHONE_STATE
-    };
-
-    public static final int PROP_OUTPUTLOG = 2;
 
     private static final int COLOR_MINAPI18 = 0xFF444444;
     private static final int COLOR_MINAPI22 = 0xFF006600;
@@ -105,6 +93,7 @@ public class ExamineNetworksProcessB {
             applyAnnotations(output, valueMap);
         }
 
+        /* TODO: privacy policy required by Google Play before READ_PHONE_STATE can be used.
         if (apiLevel >= Build.VERSION_CODES.LOLLIPOP_MR1){
             // Subscription. API 22.
             try {
@@ -168,7 +157,7 @@ public class ExamineNetworksProcessB {
         } else {
             SpannableStringBuilder text = new SpannableStringBuilder(r.getText(R.string.speedtest_html_examinenetworks_subscriptioninfo_unavailable_minApi));
             output.append(applyAnnotations(text, null));
-        }
+        }*/
 
         // cellinfo
         {

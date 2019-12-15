@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest;
+package net.pregi.android.netmesh.speedtest;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,13 +22,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pregi.android.speedtester.R;
-import net.pregi.android.speedtester.speedtest.process.SpeedtestTools;
-import net.pregi.android.speedtester.speedtest.process.SpeedtestToolsListener;
-import net.pregi.android.speedtester.speedtest.ui.gui.SpeedtestGraphicDisplay;
-import net.pregi.android.speedtester.speedtest.ui.main.LogDialogHandler;
-import net.pregi.android.speedtester.speedtest.ui.main.ServerListAdapter;
-import net.pregi.android.speedtester.speedtest.ui.main.SpeedtestSettingsDialogHandler;
+import net.pregi.android.netmesh.R;
+import net.pregi.android.netmesh.speedtest.process.SpeedtestTools;
+import net.pregi.android.netmesh.speedtest.process.SpeedtestToolsListener;
+import net.pregi.android.netmesh.speedtest.ui.gui.SpeedtestGraphicDisplay;
+import net.pregi.android.netmesh.speedtest.ui.main.LogDialogHandler;
+import net.pregi.android.netmesh.speedtest.ui.main.ServerListAdapter;
+import net.pregi.android.netmesh.speedtest.ui.main.SpeedtestSettingsDialogHandler;
 import net.pregi.android.text.SpanUtils;
 import net.pregi.math.StatisticsReportDouble;
 import net.pregi.networking.speedtest.IOProcessMode;

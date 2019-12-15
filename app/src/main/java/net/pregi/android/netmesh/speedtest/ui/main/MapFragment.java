@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.main;
+package net.pregi.android.netmesh.speedtest.ui.main;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;

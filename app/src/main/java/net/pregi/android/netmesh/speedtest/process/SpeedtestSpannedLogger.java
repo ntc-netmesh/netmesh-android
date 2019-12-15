@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.process;
+package net.pregi.android.netmesh.speedtest.process;
 
 import android.graphics.Color;
 import android.text.SpannableStringBuilder;

@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester;
+package net.pregi.android.netmesh;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,11 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pregi.android.speedtester.R;
-
-import net.pregi.android.speedtester.speedtest.SpeedtestGUIMainActivity;
-import net.pregi.android.speedtester.speedtestweb.SpeedtestWebMainActivity;
-import net.pregi.android.speedtester.speedtestweb.SpeedtestWebOoklaMainActivity;
+import net.pregi.android.netmesh.speedtest.SpeedtestGUIMainActivity;
+import net.pregi.android.netmesh.speedtestweb.SpeedtestWebMainActivity;
+import net.pregi.android.netmesh.speedtestweb.SpeedtestWebOoklaMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 

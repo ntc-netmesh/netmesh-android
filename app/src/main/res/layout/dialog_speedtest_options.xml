@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="net.pregi.android.speedtester.speedtest.SpeedtestGUIMainActivity"
+    tools:context="net.pregi.android.netmesh.speedtest.SpeedtestGUIMainActivity"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="beforeDescendants"

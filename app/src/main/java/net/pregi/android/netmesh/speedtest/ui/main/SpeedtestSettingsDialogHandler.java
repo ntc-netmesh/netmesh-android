@@ -1,9 +1,7 @@
-package net.pregi.android.speedtester.speedtest.ui.main;
+package net.pregi.android.netmesh.speedtest.ui.main;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,13 +11,11 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 
 import net.pregi.android.form.FormValidation;
-import net.pregi.android.form.Specs;
-import net.pregi.android.speedtester.speedtest.process.SpeedtestTools;
+import net.pregi.android.netmesh.speedtest.process.SpeedtestTools;
 import net.pregi.networking.speedtest.NetworkTestingOptions;
-import net.pregi.networking.speedtest.provider.SpeedtestProvider;
 import net.pregi.networking.speedtest.provider.SpeedtestProvider.Constraint;
 
 import java.util.regex.Pattern;

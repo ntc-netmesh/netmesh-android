@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.gui;
+package net.pregi.android.netmesh.speedtest.ui.gui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

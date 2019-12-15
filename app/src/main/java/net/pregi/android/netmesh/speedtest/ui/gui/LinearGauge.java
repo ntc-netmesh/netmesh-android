@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.gui;
+package net.pregi.android.netmesh.speedtest.ui.gui;
 
 class LinearGauge extends Gauge {
     /** <p></p>This is the list of interval steps.

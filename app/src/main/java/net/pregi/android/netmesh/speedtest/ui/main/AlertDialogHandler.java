@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.ui.main;
+package net.pregi.android.netmesh.speedtest.ui.main;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
 
-import com.pregi.android.speedtester.R;
+import net.pregi.android.netmesh.R;
 
 public abstract class AlertDialogHandler {
     private View dialogView;

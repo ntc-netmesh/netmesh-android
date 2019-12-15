@@ -1,4 +1,4 @@
-package net.pregi.android.speedtester.speedtest.process;
+package net.pregi.android.netmesh.speedtest.process;
 
 import net.pregi.networking.speedtest.OnSpeedtestListener;
 import net.pregi.networking.speedtest.ServerEntry;

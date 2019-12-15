@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pregi.android.speedtester">
+    package="net.pregi.android.netmesh">
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -26,9 +26,9 @@
                    See doc for android:configChanges -->
 
         <activity
-            android:name="net.pregi.android.speedtester.speedtest.SpeedtestGUIMainActivity"
+            android:name="net.pregi.android.netmesh.speedtest.SpeedtestGUIMainActivity"
             android:label="@string/app_name"
-            android:parentActivityName="net.pregi.android.speedtester.MainActivity"
+            android:parentActivityName="net.pregi.android.netmesh.MainActivity"
             android:configChanges="keyboardHidden|screenSize"
             android:theme="@style/AppThemeDark">
             <intent-filter>
