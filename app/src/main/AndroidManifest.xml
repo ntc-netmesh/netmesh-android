@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- This Google API key is now invalid. -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB1rzLS3c9web5sJzdn9NfU47CymQxm9I8"/>
